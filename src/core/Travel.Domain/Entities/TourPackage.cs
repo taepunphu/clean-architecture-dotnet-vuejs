@@ -13,6 +13,6 @@ namespace Travel.Domain.Entities
         public int Duration { get; set; }
         public bool InstantConfirmation { get; set; }
         public Currency Currency { get; set; }
-        public TourList List {get; set;}
+        public TourList? List {get; set;}
     }
 }

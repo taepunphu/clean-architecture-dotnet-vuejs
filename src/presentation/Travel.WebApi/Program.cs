@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Travel.Data.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Use to force loading of appsettings.json of test project
 builder.Logging.AddConsole();
 
 //Add DbContext
@@ -12,28 +10,25 @@ builder.Services.AddDbContext<TravelDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TravelConnection"))
 , ServiceLifetime.Scoped);
 
-// Add Swagger
-// builder.Services.AddSwaggerGen(c =>
-// {
-//     c.SwaggerDoc("v1", new OpenApiInfo
-//     {
-//          Title = "Travel.WebApi",
-//          Version = "v1"
-//     });
-//  });
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
-// app.UseSwagger();
-// app.UseSwaggerUI();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    //app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
+
+app.Run();
 
 // var summaries = new[]
 // {
