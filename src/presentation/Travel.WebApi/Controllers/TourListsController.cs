@@ -18,6 +18,7 @@ namespace Travel.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TourList tourList)
         {
+            Console.WriteLine(tourList);
             await _context.TourLists.AddAsync(tourList);
             await _context.SaveChangesAsync();
 
